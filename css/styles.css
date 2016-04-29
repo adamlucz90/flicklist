@@ -20,6 +20,9 @@ Make all elements have color: gray; by default
 Hint: just apply the style using a parent selector, and then all 
 descendent elements will automatically inherit the same styles
 */
+body {
+	color: gray;
+}
 
 
 #big-header {
@@ -49,12 +52,24 @@ ul {
 	padding-left: 0px;
 }
 
+.item-watchlist {
+	display: inline-block;
+	background-color: orange;
+	padding: 50px;
+	margin-bottom: 4px;
+	margin-right: 4px;
+	color: white;
+}
+
 button, input[type="submit"] {
 	border-width: 0px;
 	/*
 	TODO 9
 	give these buttons some padding, and color them orange with white text
 	*/
+	color: white;
+	background-color: orange;
+	padding: 10px;
 }
 
 button:disabled {
