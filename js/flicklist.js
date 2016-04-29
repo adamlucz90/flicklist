@@ -90,19 +90,12 @@ function render() {
       .click(function() {
         model.watchlistItems.push(movie);
         render();
-      });
+      })
+      .prop("disabled", model.watchlistItems.indexOf(movie) !== -1);
       // TODO 2
       // the button should be disabled if this movie is already in
       // the user's watchlist
-      // see jQuery .prop() and Array.indexOf()
-  //model.watchlistItems.forEach(function(movie){
-  model.watchlistItems.forEach(function(movie) {
-    if (model.watchlistItems.indexOf(movie) !== -1)
-    {
-      var disButton = $("#" + movie.originaltitle + " ");
-      disButton.prop("disabled", true);
-    }
-  });
+
 
     // TODO 1
     // create a paragraph containing the movie object's .overview value

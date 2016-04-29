@@ -33,8 +33,8 @@
       add a <form> here for users to search for movies by title 
       -->
       <form id="form-search">
-        <input type="text">
-        <input type="submit" value="Search By Title">
+        <input type="text"/>
+        <input type="submit" value="Search By Title"/>
         
       </form>
 
@@ -50,7 +50,8 @@
     // TODO 7
     // add a submit handler for the form above
     // should invoke the searchMovies function with render as callback
-    $("#form-search").submit(function() {
+    $("#form-search").submit(function(event) {
+      event.preventDefault();
       var search = $("#form-search input:text").val();
       searchMovies(search, render);
     });
