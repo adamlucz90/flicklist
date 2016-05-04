@@ -1,11 +1,5 @@
 
 
-$(document).ready(function() {
-  discoverMovies(render);
-});
-
-
-
 var model = {
   watchlistItems: [],
   browseItems: []
@@ -14,7 +8,9 @@ var model = {
 
 var api = {
   root: "https://api.themoviedb.org/3",
-  token: "fe3ba86e524018c1db0d00224e9e813c" // TODO 0 add your api key
+  token: "fe3ba86e524018c1db0d00224e9e813c",
+  // TODO
+  imageBaseUrl: "TODO"
 }
 
 
@@ -32,6 +28,9 @@ function discoverMovies(callback) {
     success: function(response) {
       model.browseItems = response.results;
       callback(response);
+    },
+    fail: function() {
+      console.log("fail!");
     }
   });
 }
@@ -45,16 +44,20 @@ function discoverMovies(callback) {
  * the callback function that was passed in
  */
 function searchMovies(query, callback) {
-  // TODO 8
+  // TODO
+
   $.ajax({
     url: api.root + "/search/movie",
     data: {
       api_key: api.token,
-      query
+      query: query
     },
     success: function(response) {
       model.browseItems = response.results;
       callback(response);
+    },
+    fail: function() {
+      console.log("search failed");
     }
   });
 }
@@ -64,58 +67,72 @@ function searchMovies(query, callback) {
  * re-renders the page with new content, based on the current state of the model
  */
 function render() {
+  var watchlistElement = $("#section-watchlist ul");
+  var browseElement = $("#section-browse ul");
 
   // clear everything
-  $("#section-watchlist ul").empty();
-  $("#section-browse ul").empty();
+  watchlistElement.empty();
+  browseElement.empty();
 
   // insert watchlist items
   model.watchlistItems.forEach(function(movie) {
-    var title = $("<p></p>").text(movie.original_title);
-    var itemView = $("<li></li>")
-      .append(title)
-      .attr("class", "item-watchlist")
-      // TODO 3
-      // give itemView a class attribute of "item-watchlist"
+    // TODO
+    // create a bootstrap panel for each watchlist item.
+    // The movie title should go in the panel heading.
+    // The panel body should contain a poster image,
+    // and also a button to cross the item off the watchlist.
 
-    $("#section-watchlist ul").append(itemView);
+    var delButton = $('<button class="btn btn-danger"></button>')
+      .text("I watched it")
+      .click(function() {
+       var delMovie = model.watchlistItems.indexOf(movie)
+        model.watchlistItems.splice(delMovie, 1);
+        render();
+      });
+    
+    var image = $("<img>").attr("src", movie.poster_path);
+    
+    var panelBody = $("<div></div>")
+                    .attr("class", "panel-body")
+                    .append(image)
+                    .append(delButton);
+                    
+    var title = $('<h4></h4>').text(movie.original_title).attr("class", "panel-heading");
+    
+    var itemView = $("<li></li>")
+    .append(title)
+    .append(panelBody)
+    .attr("class", "panel panel-default");
+    watchlistElement.append(itemView);
   });
 
   // insert browse items
   model.browseItems.forEach(function(movie) {
     var title = $("<h4></h4>").text(movie.original_title);
-    var button = $("<button></button>")
-      .attr("id", movie.original_title)
+    var overview = $("<p></p>").text(movie.overview);
+    var button = $('<button class="btn btn-primary"></button>')
       .text("Add to Watchlist")
       .click(function() {
         model.watchlistItems.push(movie);
         render();
       })
       .prop("disabled", model.watchlistItems.indexOf(movie) !== -1);
-      // TODO 2
-      // the button should be disabled if this movie is already in
-      // the user's watchlist
 
-
-    // TODO 1
-    // create a paragraph containing the movie object's .overview value
-    // then, in the code block below,
-    // append the paragraph in between the title and the button
-    var descrip = $("<p></p>").text(movie.overview);
-
-    // append everything to itemView, along with an <hr/>
-    var itemView = $("<li></li>")
-      .append($("<hr/>"))
+    // TODO
+    // use Bootstrap to improve the style of these list items
+    var itemView = $('<li class="list-group-item"></li>')
       .append(title)
-      .append(descrip)
+      .append(overview)
       .append(button);
 
-    // append the itemView to the list
-    $("#section-browse ul").append(itemView);
+    browseElement.append(itemView);
   });
   
 }
 
 
 
-
+function posterUrl(movie, width) {
+  // TODO
+  
+}

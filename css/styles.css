@@ -1,77 +1,53 @@
 /*
-HINT
-For CSS stuff, make good use of the Chrome Developer Tools:
--- on the demo page, open up the inspector and poke around.
--- on your own page, use dev tools to add and modify styles directly in the browser.
+TODO
+Style the page as shown in the example.
+Make good use of the developer tools:
+-- on the example page, open up the inspector and poke around
+-- on your own page, use dev tools to add and modify styles directly in the browser
 */
 
 
-/*
-TODO 4
-add a selector for elements with class "item-watchlist"
-give these elements a display property of inline-block
-and then style them as shown in the example (padding, margin, background, etc)
-*/
+.jumbotron {
+	background: #ccccb3;
+	text-align: center;
+	margin-bottom: 1%;
+	color: black;
+}
 
-
-/*
-TODO 5 
-Make all elements have color: gray; by default
-Hint: just apply the style using a parent selector, and then all 
-descendent elements will automatically inherit the same styles
-*/
-body {
+header p {
 	color: gray;
 }
 
+#section-watchlist {
+	color: gray;
+}
 
-#big-header {
-	background: gray;
-	color: white;
-	text-align: center;
+#section-watchlist li {
+	margin: 5px 0px 5px 0px;
+	width: 160px;
 }
 
 #section-browse {
-	background: #eee;	
+  background: black;
+  color: white;
 }
+
+
+
 
 #section-browse li {
-	margin-bottom: 40px;
+	margin-bottom: 1px;
 	list-style: none;
+	border: 1px solid white;
+	padding: 10px;
+	background-color: white;
+	color: black;
 }
 
-section header {
-	margin-bottom: 40px;
-}
-
-section, #big-header {
-	padding: 20px;
+li h4 {
+	margin-top: 0px;
 }
 
 ul {
-	padding-left: 0px;
-}
-
-.item-watchlist {
-	display: inline-block;
-	background-color: orange;
-	padding: 50px;
-	margin-bottom: 4px;
-	margin-right: 4px;
-	color: white;
-}
-
-button, input[type="submit"] {
-	border-width: 0px;
-	/*
-	TODO 9
-	give these buttons some padding, and color them orange with white text
-	*/
-	color: white;
-	background-color: orange;
-	padding: 10px;
-}
-
-button:disabled {
-	opacity: 0.5;
+	margin-top: 40px;
 }
