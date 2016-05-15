@@ -7,6 +7,19 @@
 	margin-bottom: 1%;
 }
 
+#containerA {
+	background: red;
+	color: white;
+	border-width: 0;
+}
+
+.carousel-inner {
+	padding-left: 0;
+}
+
+#add-to-watchlist {
+	width: 100%;
+}
 
 #section-watchlist li {
 	padding: 0px;
@@ -46,3 +59,7 @@ section {
 	padding: 2%;
 }
 
+#browse-carousel {
+    max-width: 300px;
+    margin: auto;
+}

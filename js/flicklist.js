@@ -2,8 +2,9 @@
 
 var model = {
   watchlistItems: [],
-  browseItems: []
-
+  browseItems: [],
+  activeMovieIndex: 0
+  
   // TODO 
   // add a property for the current active movie index
 }
@@ -11,7 +12,7 @@ var model = {
 
 var api = {
   root: "https://api.themoviedb.org/3",
-  token: "8e888fa39ec243e662e1fb738c42ae99", // TODO 0 add your api key
+  token: "fe3ba86e524018c1db0d00224e9e813c", // TODO 0 add your api key
   /**
    * Given a movie object, returns the url to its poster image
    */
@@ -83,8 +84,12 @@ function render() {
 
   // clear everything
   $("#section-watchlist ul").empty();
-  $("#section-browse ul").empty();
+  $("#section-browse .carousel-inner").empty();
+  //$("#section-browse ul").empty();
+  
 
+  
+  
   // render watchlist items
   model.watchlistItems.forEach(function(movie) {
     var title = $("<h6></h6>").text(movie.original_title);
@@ -122,28 +127,35 @@ function render() {
     $("#section-watchlist ul").append(itemView);
   });
 
-  // render browse items
-  model.browseItems.forEach(function(movie) {
-    var title = $("<h4></h4>").text(movie.original_title);
-    var overview = $("<p></p>").text(movie.overview);
 
-    // button for adding to watchlist
-    var button = $("<button></button>")
-      .text("Add to Watchlist")
-      .attr("class", "btn btn-primary")
-      .click(function() {
-        model.watchlistItems.push(movie);
-        render();
-      })
-      .prop("disabled", model.watchlistItems.indexOf(movie) !== -1);
+//Render browselist items
+  var activeMovie = model.browseItems[model.activeMovieIndex];
+  
+  $("#browse-info h4").text(activeMovie.original_title);
+  $("#browse-info p").text(activeMovie.overview);
+  
+  $("#add-to-watchlist")
+    .click(function() {
+     model.watchlistItems.push(activeMovie);
+     render();
+   })
+   .prop("disabled", model.watchlistItems.indexOf(activeMovie) !== -1);
+  
+      // fill carousel with posters
+    var posters = model.browseItems.map(function(movie) {
+ 
+      var poster = $("<img></img>")
+        .attr("src", api.posterUrl(movie))
+        .attr("class", "img-responsive");
+        
+        return $("<li></li>")
+              .attr("class", "item")
+              .append(poster);
 
-    var itemView = $("<li></li>")
-      .attr("class", "list-group-item")
-      .append( [title, overview, button] );
-      
-    // append the itemView to the list
-    $("#section-browse ul").append(itemView);
-  });
+    });
+    $("#section-browse .carousel-inner").append(posters);
+    posters[model.activeMovieIndex].addClass("active");
+
 }
 
 
